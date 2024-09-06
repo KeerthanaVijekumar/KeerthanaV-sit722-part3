@@ -1,1 +1,24 @@
-# Your Solution
+version: '3.8'
+
+services:
+  # book-catalog microservice
+  microservice1:
+    build:
+      context: ./book_catalog 
+      dockerfile: Dockerfile  
+    container_name: book-catalog
+    ports:
+      - "8000:8000"  
+    environment:
+      - DATABASE_URL= postgresql://book_inventory_user:ZKvfpDLKgYeEOd4SfCZ8XzDrYdYW9vjy@dpg-crd60n3tq21c73cu0rm0-a.oregon-postgres.render.com/book_inventory
+
+  # inventory-management microservice
+  microservice2:
+    build:
+      context: ./inventory_management 
+      dockerfile: Dockerfile
+    container_name: inventory-management
+    ports:
+      - "8001:8001"
+    environment:
+      - DATABASE_URL= postgresql://book_inventory_user:ZKvfpDLKgYeEOd4SfCZ8XzDrYdYW9vjy@dpg-crd60n3tq21c73cu0rm0-a.oregon-postgres.render.com/book_inventory
